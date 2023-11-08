@@ -1,8 +1,8 @@
 body {
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-    height: 100%;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
 }
 
 .OurDiv {
@@ -25,14 +25,83 @@ body {
 .button {
     background-color: #D3D0CB;
     color: black;
-    border: 2px solid #04AA6D;
+    border: 1px solid #e2c044;
     width: 80%;
     margin-top: 2.5%;
     margin-bottom: 2.5%;
     cursor: pointer;
     height: 60px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 45;
     opacity: 0.5;
 }
-.button:hover {opacity: 1}
+.button:hover {
+    opacity: 1;
+    transition: 1s;
+    background-color: black;
+    color: #D3D0CB;
+    &:after {
+      background-color: #D3D0CB;
+      color: black;
+      transition: 1s;
+    }
+}
+
+
+
+
+.OurDiv {
+    position: relative;
+    background: linear-gradient(0deg, #000, #262626);
+  }
+  
+.shadow {
+    
+    &:before, &:after {
+      content:'';
+      position: absolute;
+      top:-2px;
+      left:-2px;
+      width:calc(100% + 4px);
+      height:calc(100% + 4px);
+      background: linear-gradient(
+        45deg, 
+        #fb0094, 
+        #0000ff, 
+        #00ff00, 
+        #ffff00, 
+        #ff0000, 
+        #fb0094, 
+        #0000ff, 
+        #00ff00, 
+        #ffff00, 
+        #ff0000
+      );
+      background-size: 400%;
+      z-index:-1;
+      animation: shadow 20s linear infinite;
+    }
+    
+    &:after {
+      top:-8px;
+      left:-8px;
+      width:calc(100% + 16px);
+      height:calc(100% + 16px);    
+      filter:blur(24px);
+      opacity:0.9;
+    }
+    
+  }
+  
+@keyframes shadow {
+    0% {
+      background-position: 0 0;
+    }
+    50.01% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+
