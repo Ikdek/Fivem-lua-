@@ -14,37 +14,41 @@ end
 
 
 Citizen.CreateThread(function()
-    ped = PlayerPedId()
-    local heading = 0.0  
+    numberDeath = 0
+    while numberDeath ~= 5 do
+        ped = PlayerPedId()
+        local heading = 0.0  
 
-    local policeName = "s_m_y_cop_01"
-    local policeHash = GetHashKey(policeName)
-    RequestModel(policeHash)
-    police = CreatePed(9, policeHash, -1525.0652, -2934.4646, 13.9444, heading, true, false)
-    radiusAgro = 10
-    isInAgro = false
-    while not HasModelLoaded(policeHash) do
-        Citizen.Wait(0)
-    end
-    while IsPedDeadOrDying(police,1) == false do
-        playerPos = GetEntityCoords(ped)
-        policePos = GetEntityCoords(police)
-        if IsPlayerInRadius(ped,policePos.x,policePos.y,policePos.z,radiusAgro*5) then
-            if isInAgro == false then
-                DrawMarker(1, policePos.x,policePos.y,policePos.z - 1.0, 0, 0, 0, 0, 0, 0, radiusAgro * 2.0, radiusAgro * 2.0, 1.0, 255, 0, 0, 100, false, false, 2, nil, nil, false)
-                ClearPedTasks(police)
-            else
-                DrawMarker(1, policePos.x,policePos.y,policePos.z - 1.0, 0, 0, 0, 0, 0, 0, radiusAgro * 2.0, radiusAgro * 2.0, 1.0, 0, 255, 0, 100, false, false, 2, nil, nil, false)
-                TaskCombatPed(police, ped, 0 , 0)
-            end
+        local policeName = "s_m_y_cop_01"
+        local policeHash = GetHashKey(policeName)
+        RequestModel(policeHash)
+        police = CreatePed(9, policeHash, -1525.0652, -2934.4646, 13.9444, heading, true, false)
+        radiusAgro = 10
+        isInAgro = false
+        while not HasModelLoaded(policeHash) do
+            Citizen.Wait(0)
         end
-        Citizen.Wait(1)
+        while IsPedDeadOrDying(police,1) == false do
+            playerPos = GetEntityCoords(ped)
+            policePos = GetEntityCoords(police)
+            if IsPlayerInRadius(ped,policePos.x,policePos.y,policePos.z,radiusAgro*5) then
+                if isInAgro == false then
+                    DrawMarker(1, policePos.x,policePos.y,policePos.z - 1.0, 0, 0, 0, 0, 0, 0, radiusAgro * 2.0, radiusAgro * 2.0, 1.0, 255, 0, 0, 100, false, false, 2, nil, nil, false)
+                    ClearPedTasks(police)
+                else
+                    DrawMarker(1, policePos.x,policePos.y,policePos.z - 1.0, 0, 0, 0, 0, 0, 0, radiusAgro * 2.0, radiusAgro * 2.0, 1.0, 0, 255, 0, 100, false, false, 2, nil, nil, false)
+                    TaskCombatPed(police, ped, 0 , 0)
+                end
+            end
+            Citizen.Wait(1)
+        end
+        numberDeath = numberDeath + 1
+        Citizen.Wait(60000)
     end
-    
 end)
 
 Citizen.CreateThread(function()
-    while IsPedDeadOrDying(police,1) == false  do
+    while numberDeath ~= 5  do
         if IsPlayerInRadius(ped,policePos.x,policePos.y,policePos.z,radiusAgro*5) then
             if IsPlayerInRadius(ped,policePos.x,policePos.y,policePos.z,radiusAgro) then
                 isInAgro = true
