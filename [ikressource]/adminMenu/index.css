@@ -37,14 +37,8 @@ body {
 }
 .button:hover {
     opacity: 1;
-    transition: 1s;
     background-color: black;
     color: #D3D0CB;
-    &:after {
-      background-color: #D3D0CB;
-      color: black;
-      transition: 1s;
-    }
 }
 
 
@@ -104,4 +98,3 @@ body {
       background-position: 0 0;
     }
   }
-

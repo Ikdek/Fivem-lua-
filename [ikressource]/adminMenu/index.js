@@ -7,8 +7,15 @@ window.addEventListener('message', function(event) {
     }
 });
 function noclip() {
-    $.post("http://adminMenu/noclip", JSON.stringify({}));
-    return
+    fetch(`https://${GetParentResourceName()}/getItemInfo`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({
+        itemId: 'noclip'
+    })
+}).then(resp => resp.json()).then(resp => console.log(resp));
 }
 
 function heal() {
